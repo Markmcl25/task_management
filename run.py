@@ -1,20 +1,22 @@
-import cgi
-import cgitb
 import gspread
 from google.oauth2.service_account import Credentials
 import http.server
 import socketserver
 import json
 
+# Define the scope and authorize the client
 SCOPE = ["https://www.googleapis.com/auth/spreadsheets",
          "https://www.googleapis.com/auth/drive.file",
          "https://www.googleapis.com/auth/drive"]
 
-ENTRIES = Credentials.from_service_account_file('entries.json')  
-SCOPED_ENTRIES = ENTRIES.with_scopes(SCOPE)
-GSPREAD_CLIENT = gspread.authorize(SCOPED_ENTRIES)
-SHEET = GSPREAD_CLIENT.open('event_reminder') 
-USER_INPUTS = SHEET.worksheet('user_inputs')  # Define the worksheet
+# Load the credentials from the JSON file
+CREDENTIALS = Credentials.from_service_account_file('entries.json')  # Replace with your actual JSON credentials file
+SCOPED_CREDENTIALS = CREDENTIALS.with_scopes(SCOPE)
+GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDENTIALS)
+
+# Open the Google Sheet by name and get the specific worksheet
+SHEET = GSPREAD_CLIENT.open('event_reminder')
+USER_INPUTS = SHEET.worksheet('user_inputs')
 
 class Event:
     def __init__(self, first_name, second_name, event_type, email):
@@ -65,6 +67,7 @@ class MyHandler(http.server.SimpleHTTPRequestHandler):
 
 # Define the port
 PORT = 8000
+
 # Create an HTTP server with the custom handler
 Handler = MyHandler
 Handler.cgi_directories = ['/cgi-bin']
@@ -72,4 +75,33 @@ Handler.cgi_directories = ['/cgi-bin']
 # Create and start the server
 httpd = socketserver.TCPServer(("", PORT), Handler)
 print("serving at port", PORT)
-httpd.serve_forever()
+
+# Function to get event details from the user via terminal
+def get_event_details():
+    first_name = input("Enter your first name: ")
+    second_name = input("Enter your second name: ")
+    event_type = input("Enter the event type: ")
+    email = input("Enter your email: ")
+    return [first_name, second_name, event_type, email]
+
+# Function to append event details to the Google Sheet
+def append_to_sheet(event_details):
+    USER_INPUTS.append_row(event_details)
+    print("Event details added to the spreadsheet.")
+
+# Main function
+def main():
+    print("1. Run the web server")
+    print("2. Add an event via terminal")
+    choice = input("Enter your choice: ")
+    
+    if choice == '1':
+        httpd.serve_forever()
+    elif choice == '2':
+        event_details = get_event_details()
+        append_to_sheet(event_details)
+    else:
+        print("Invalid choice. Exiting.")
+
+if __name__ == "__main__":
+    main()
