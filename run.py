@@ -10,6 +10,10 @@ SCOPED_ENTRIES = ENTRIES.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.autorize(SCOPED_ENTRIES)
 SHEET = GSPREAD_CLIENT.open('event_reminder') 
 
-user_imputs = SHEET.worksheet('user_inputs')
-
-data = 
+class Event:
+    def __init__(self, name, date, location, description, organizer):
+        self.name = name
+        self.date = date
+        self.location = location
+        self.description = description
+        self.organizer = organizer 
