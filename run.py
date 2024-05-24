@@ -52,3 +52,7 @@ class Event:
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps(events_dict).encode())
+            
+             else:
+            # Serve static files for other paths
+            super().do_GET()
