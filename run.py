@@ -44,3 +44,11 @@ class Event:
     class MyHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/events':
+        # Load events and convert them to dictionaries
+            events = load_events()
+            events_dict = [event.__dict__ for event in events]
+        # Send JSON response with event data
+             self.send_response(200)
+            self.send_header('Content-Type', 'application/json')
+            self.end_headers()
+            self.wfile.write(json.dumps(events_dict).encode())
