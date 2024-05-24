@@ -1,3 +1,4 @@
+import 
 import gspread
 from google.oauth2.service_account import credentials
 
@@ -11,9 +12,19 @@ GSPREAD_CLIENT = gspread.autorize(SCOPED_ENTRIES)
 SHEET = GSPREAD_CLIENT.open('event_reminder') 
 
 class Event:
-    def __init__(self, name, date, location, description, organizer):
-        self.name = name
-        self.date = date
-        self.location = location
-        self.description = description
-        self.organizer = organizer 
+    def __init__(self, first_name, second_name, event_type, email):
+        self.first_name = first_name
+        self.second_name = second_name
+        self.event_type = event_type
+        self.email = email
+
+    def to_list(self):
+        return [self.first_name, self.second_name, self.event_type, self.email]    
+
+    def from_list(data):
+        return Event(
+            first_name=data[0],
+            second_name=data[1],
+            event_type=data[2],
+            email=data[3]
+        )
