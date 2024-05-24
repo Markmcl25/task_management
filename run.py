@@ -32,7 +32,15 @@ class Event:
             event_type=data[2],
             email=data[3]
         )
-# Load events from the Google Sheet
+        # Load events from the Google Sheet
       def load_events():
         events = []  
         records = USER_INPUTS.get_all_values
+        # Skip the header row and convert each row to an Event object
+    for row in records[1:]:
+        events.append(Event.from_list(row))
+    return events
+
+    class MyHandler(http.server.SimpleHTTPRequestHandler):
+    def do_GET(self):
+        if self.path == '/events':
