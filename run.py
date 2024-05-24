@@ -33,7 +33,7 @@ class Event:
             email=data[3]
         )
         # Load events from the Google Sheet
-      def load_events():
+    def load_events():
         events = []  
         records = USER_INPUTS.get_all_values
         # Skip the header row and convert each row to an Event object
@@ -41,19 +41,19 @@ class Event:
         events.append(Event.from_list(row))
     return events
 
-    class MyHandler(http.server.SimpleHTTPRequestHandler):
+class MyHandler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == '/events':
         # Load events and convert them to dictionaries
             events = load_events()
             events_dict = [event.__dict__ for event in events]
         # Send JSON response with event data
-             self.send_response(200)
+            self.send_response(200)
             self.send_header('Content-Type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps(events_dict).encode())
 
-             else:
+        else:
             # Serve static files for other paths
             super().do_GET()
 
