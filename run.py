@@ -16,7 +16,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDENTIALS)
 
 # Open the Google Sheet by name and get the specific worksheet
 SHEET = GSPREAD_CLIENT.open('event_reminder')
-USER_INPUTS = SHEET.worksheet('user_inputs')
+EVRNT_REMINDER = SHEET.worksheet('event_reminder')
 
 class Event:
     def __init__(self, first_name, second_name, event_type, email):
@@ -44,7 +44,7 @@ class Event:
     def load_events():
         # Load events from the Google Sheet
         events = []  
-        records = USER_INPUTS.get_all_values()
+        records = EVRNT_REMINDER.get_all_values()
         # Skip the header row and convert each row to an Event object
         for row in records[1:]:
             events.append(Event.from_list(row))
