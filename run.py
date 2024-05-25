@@ -10,7 +10,7 @@ SCOPE = ["https://www.googleapis.com/auth/spreadsheets",
          "https://www.googleapis.com/auth/drive"]
 
 # Load the credentials from the JSON file
-CREDENTIALS = Credentials.from_service_account_file('entries.json')  # Replace with your actual JSON credentials file
+CREDENTIALS = Credentials.from_service_account_file('entries.json')  
 SCOPED_CREDENTIALS = CREDENTIALS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDENTIALS)
 
@@ -86,7 +86,7 @@ def get_event_details():
 
 # Function to append event details to the Google Sheet
 def append_to_sheet(event_details):
-    USER_INPUTS.append_row(event_details)
+    EVRNT_REMINDER.append_row(event_details)
     print("Event details added to the spreadsheet.")
 
 # Main function
