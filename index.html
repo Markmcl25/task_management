@@ -1,36 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!-- Meta tags for character encoding and viewport settings -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Title of the webpage -->
     <title>Event Reminder</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header>
+        <!-- Header section with the main title -->
         <h1>Event Reminder</h1>
     </header>
+    <!-- Main container for the content -->
     <div class="container">
         <h2>Add Event</h2>
+
         <div id="formContainer">
+            <!-- Form group for the first name input -->
             <div class="form-group">
                 <label for="firstName">First Name</label>
                 <input type="text" id="firstName" required>
             </div>
+            <!-- Form group for the second name input -->
             <div class="form-group">
                 <label for="secondName">Second Name</label>
                 <input type="text" id="secondName" required>
             </div>
+            <!-- Form group for the event type input -->
             <div class="form-group">
                 <label for="eventType">Event Type</label>
                 <input type="text" id="eventType" required>
             </div>
+            <!-- Form group for the email input -->
             <div class="form-group">
                 <label for="email">Email</label>
                 <input type="email" id="email" required>
             </div>
+            <!-- Button to trigger the addEvent function -->
             <button onclick="addEvent()">Add Event</button>
         </div>
     </div>
 </body>
+
 </html>
