@@ -6,6 +6,12 @@ async function addEvent() {
     const eventType = document.getElementById('eventType').value;
     const email = document.getElementById('email').value;
 
+    // Validate input fields
+    if (!firstName || !secondName || !eventType || !email) {
+        alert('Please fill in all fields.');
+        return;
+    }
+
     // Create an object with the event details
     const eventDetails = {
         first_name: firstName,

@@ -10,7 +10,7 @@ SCOPE = ["https://www.googleapis.com/auth/spreadsheets",
          "https://www.googleapis.com/auth/drive"]
 
 # Load the credentials from the JSON file
-CREDENTIALS = Credentials.from_service_account_file('entries.json')  # Replace with your actual JSON credentials file
+CREDENTIALS = Credentials.from_service_account_file('creds.json') 
 SCOPED_CREDENTIALS = CREDENTIALS.with_scopes(SCOPE)
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDENTIALS)
 
