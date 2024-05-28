@@ -1,6 +1,5 @@
 import http.server
 import socketserver
-import cgi
 import gspread
 from google.oauth2 import service_account
 import logging
